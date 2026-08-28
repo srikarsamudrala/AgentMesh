@@ -1,8 +1,12 @@
-# AgentMesh
+# AgentMesh — Agentic Java Chat Platform
 
 AgentMesh is a Java desktop chat platform with real-time direct messages, role-managed group chats, analytics, and Gemini-powered AI agents that can join group conversations as Product Manager and Program Manager teammates.
 
 The app is built with Java Swing, TCP sockets, SQLite, Gemini API, and an MCP client boundary for tool-connected agent workflows.
+
+## Final Review Summary
+
+AgentMesh demonstrates an end-to-end agentic application in a traditional Java desktop stack. It combines human chat, persistent collaboration spaces, analytics, LLM-backed role agents, MCP-ready tool access, and response-safety controls in one runnable system.
 
 ## Highlights
 
@@ -18,40 +22,6 @@ The app is built with Java Swing, TCP sockets, SQLite, Gemini API, and an MCP cl
 - Hallucination controls that prevent agents from claiming unverifiable project facts
 - SQLite persistence for users, contacts, messages, groups, analytics, agent membership, and agent audit logs
 - Admin analytics dashboard for engagement and group-health reporting
-
-## Screenshots
-
-### Sign In
-
-![Sign in flow](img/sign%20in.jpeg)
-
-### Chat Workspace
-
-![Chat workspace](img/client%20chat.jpeg)
-
-### Active Conversation
-
-![Active chat thread](img/chat%20window.jpeg)
-
-### Group Chat
-
-![Group conversation](img/group%20chat.jpeg)
-
-### Group Members
-
-![Group members dialog](img/group%20members%20list.jpeg)
-
-### Analytics Dashboard
-
-![Dashboard overview](img/Dashboard%20overview.jpeg)
-
-![Dashboard series](img/Dashboard%20Series.jpeg)
-
-![Dashboard engagement](img/Dashboard%20Engagement.jpeg)
-
-![Group health](img/Group%20Health.jpeg)
-
-![Group drilldown](img/Group%20Drilldown.jpeg)
 
 ## End-To-End Architecture
 
@@ -82,7 +52,7 @@ flowchart LR
     MCP -. optional stdio .-> Tools[MCP Servers / External Tools]
 ```
 
-## Runtime Flow
+## End-To-End Runtime Flow
 
 ### Human Chat Flow
 
@@ -129,9 +99,9 @@ sequenceDiagram
     S-->>C: [AGENT product-manager] response
 ```
 
-## Agents
+## Agent System
 
-AgentMesh currently seeds two built-in agents on server startup.
+AgentMesh seeds two built-in agents on server startup and stores group-agent membership in SQLite.
 
 | Agent | Mention | Purpose |
 |-------|---------|---------|
@@ -182,6 +152,8 @@ ECHO_MCP_SERVER_NAME=project-files
 ECHO_MCP_STDIO_COMMAND=npx
 ECHO_MCP_STDIO_ARGS="-y @modelcontextprotocol/server-filesystem ."
 ```
+
+This design keeps tool access server-side, where permissions, auditing, and hallucination controls can be enforced before the response is sent back to clients.
 
 ## Hallucination Handling
 
@@ -271,7 +243,6 @@ AgentMesh/
 │       ├── GroupManager.java
 │       ├── MessageManager.java
 │       └── UserManager.java
-├── img/
 ├── lib/
 │   └── sqlite-jdbc-3.40.1.0.jar
 ├── scripts/
@@ -406,4 +377,3 @@ Do not commit API keys, generated databases, local context, or compiled artifact
 
 - MCP support is implemented as a stdio client foundation. Tool-specific workflows still need to be configured per MCP server.
 - The project currently uses raw `javac` commands. Moving to Maven or Gradle would make future SDK dependency management cleaner.
-- Screenshots should be refreshed whenever the UI changes significantly.
