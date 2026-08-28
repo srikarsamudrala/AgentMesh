@@ -1,0 +1,15 @@
+*.class
+bin/
+out/
+target/
+*.log
+*.tmp
+.DS_Store
+.env
+.env.*
+.vscode/
+.idea/
+*.db
+context/
+local-plans/
+chat.db
